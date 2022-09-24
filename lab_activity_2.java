@@ -1,4 +1,4 @@
-public class Main {
+public class lab_activity_2 {
     public static void main(String[] args) {
         String state = "q0", input = "011101101";
         String[] states = {"q0", "q1", "q2"};
