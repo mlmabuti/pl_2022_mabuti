@@ -17,8 +17,7 @@ public class lab_activity_3 {
 
     public static ArrayList<String> tokenize(ArrayList<String> processedInput){
         ArrayList<String> dataTypes = new ArrayList<>(Arrays.asList("int", "double", "char", "String"));
-        int values = 0;
-        int identifiers = 0;
+        int values = 0, identifiers = 0;
 
         ArrayList<String> tokens = new ArrayList<>();
 
@@ -42,14 +41,14 @@ public class lab_activity_3 {
 
     public static ArrayList<String> processInput(String input){
         String[] inputSpecific = input.split(" ");
-        String lastWord = inputSpecific[inputSpecific.length-1];
-        String lastCharacter = lastWord.split("")[lastWord.length()-1];
-
-        String word = lastWord.substring(0, lastWord.length()-1);
+        String lastWord = inputSpecific[inputSpecific.length-1],
+        lastCharacter = lastWord.split("")[lastWord.length()-1];
+        
+        lastWord = lastWord.substring(0, lastWord.length()-1);
         ArrayList<String> inputSpecificFinal = new ArrayList<>(
                 Arrays.asList(inputSpecific).subList(0, inputSpecific.length - 1));
 
-        inputSpecificFinal.add(word);
+        inputSpecificFinal.add(lastWord);
         inputSpecificFinal.add(lastCharacter);
 
         return inputSpecificFinal;
