@@ -10,25 +10,25 @@ public class LabAct3_Tokenizer {
         String input = sc.nextLine();
 
         System.out.print("Output is: ");
-        for (String str : tokenizer(lexer(input))) {
+        for (String str: tokenizer(lexer(input))) {
             System.out.print(str + " ");
         }
     }
 
-    public static ArrayList<String> tokenizer(ArrayList<String> lexemes){
-        ArrayList<String> dataTypes = new ArrayList<>(
+    public static ArrayList < String > tokenizer(ArrayList < String > lexemes) {
+        ArrayList < String > dataTypes = new ArrayList < > (
                 Arrays.asList("int", "double", "char", "String")),
-                tokens = new ArrayList<>();
+                tokens = new ArrayList < > ();
 
-        for (String str : lexemes){
-            if (dataTypes.contains(str)){
+        for (String lexeme: lexemes) {
+            if (dataTypes.contains(lexeme)) {
                 tokens.add("<data_type>");
-            } else if (str.contains("=")){
+            } else if (lexeme.contains("=")) {
                 tokens.add("<assignment_operator>");
-            } else if (str.contains("\"")|| str.contains("'")
-                    || Character.isDigit(str.charAt(0))) {
+            } else if (lexeme.contains("\"") || lexeme.contains("'") ||
+                    Character.isDigit(lexeme.charAt(0))) {
                 tokens.add("<value>");
-            } else if (str.contains(";")){
+            } else if (lexeme.contains(";")) {
                 tokens.add("<delimiter>");
             } else {
                 tokens.add("<identifier>");
@@ -37,44 +37,43 @@ public class LabAct3_Tokenizer {
         return tokens;
     }
 
-    public static ArrayList<String> lexer(String input){
+    public static ArrayList < String > lexer(String input) {
         String[] individualChars = input.split("");
 
-        ArrayList<String> tokens = new ArrayList<>();
+        ArrayList < String > tokens = new ArrayList < > ();
 
         StringBuilder temp = new StringBuilder(),
                 quotedString = new StringBuilder();
 
         boolean isQuote = false;
 
-        for (String c : individualChars){
-            if (c.equals("=") && !isQuote){
-                tokens.add(c);
-            }
-            else if (c.equals(";") && !isQuote){
+        for (String c: individualChars) {
+            if (c.equals("=") && !isQuote) {
                 tokens.add(temp.toString());
                 tokens.add(c);
                 temp = new StringBuilder();
-            }
-            else if (c.equals(" ") && !isQuote){
-                if (!temp.toString().equals("")){
-                    tokens.add(temp.toString());
-                }
+            } else if (c.equals(";") && !isQuote) {
+                tokens.add(temp.toString());
+                tokens.add(c);
                 temp = new StringBuilder();
-            }
-            else if (c.equals("\"")) {
+            } else if (c.equals(" ") && !isQuote) {
+                tokens.add(temp.toString());
+                temp = new StringBuilder();
+            } else if (c.equals("\"")) {
                 quotedString.append(c);
                 if (isQuote) {
                     tokens.add(quotedString.toString());
                     quotedString = new StringBuilder();
                     isQuote = false;
+                } else {
+                    isQuote = true;
                 }
-                else { isQuote = true; }
+            } else if (isQuote) {
+                quotedString.append(c);
+            } else {
+                temp.append(c);
             }
-            else if (isQuote) { quotedString.append(c); }
-            else { temp.append(c); }
         }
-
         tokens.removeIf(n -> (n.equals("")));
         return tokens;
     }
