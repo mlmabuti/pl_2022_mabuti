@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class lab_activity_1 {
+public class LabAct1_PalindromeChecker {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
