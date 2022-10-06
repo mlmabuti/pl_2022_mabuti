@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class lab_activity_3 {
+public class LabAct3_Tokenizer {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -13,7 +13,6 @@ public class lab_activity_3 {
         for (String str : tokenizer(lexer(input))) {
             System.out.print(str + " ");
         }
-
     }
 
     public static ArrayList<String> tokenizer(ArrayList<String> lexemes){
