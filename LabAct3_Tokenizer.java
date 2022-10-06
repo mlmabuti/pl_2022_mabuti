@@ -40,7 +40,7 @@ public class LabAct3_Tokenizer {
     public static ArrayList < String > lexer(String input) {
         String[] individualChars = input.split("");
 
-        ArrayList < String > tokens = new ArrayList < > ();
+        ArrayList < String > lexemes = new ArrayList < > ();
 
         StringBuilder temp = new StringBuilder(),
                 quotedString = new StringBuilder();
@@ -49,20 +49,20 @@ public class LabAct3_Tokenizer {
 
         for (String c: individualChars) {
             if (c.equals("=") && !isQuote) {
-                tokens.add(temp.toString());
-                tokens.add(c);
+                lexemes.add(temp.toString());
+                lexemes.add(c);
                 temp = new StringBuilder();
             } else if (c.equals(";") && !isQuote) {
-                tokens.add(temp.toString());
-                tokens.add(c);
+                lexemes.add(temp.toString());
+                lexemes.add(c);
                 temp = new StringBuilder();
             } else if (c.equals(" ") && !isQuote) {
-                tokens.add(temp.toString());
+                lexemes.add(temp.toString());
                 temp = new StringBuilder();
             } else if (c.equals("\"")) {
                 quotedString.append(c);
                 if (isQuote) {
-                    tokens.add(quotedString.toString());
+                    lexemes.add(quotedString.toString());
                     quotedString = new StringBuilder();
                     isQuote = false;
                 } else {
@@ -74,7 +74,7 @@ public class LabAct3_Tokenizer {
                 temp.append(c);
             }
         }
-        tokens.removeIf(n -> (n.equals("")));
-        return tokens;
+        lexemes.removeIf(n -> (n.equals("")));
+        return lexemes;
     }
 }
