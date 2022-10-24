@@ -5,12 +5,11 @@ public class LabAct4_Parser {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter tokens: ");
-        if (parser(sc.nextLine().split(" "))) {
+        if (parser(sc.nextLine().split(" \\s*"))) {
             System.out.println("Syntax is Correct!");
         } else {
             System.out.println("Syntax Error!");
         }
-
     }
 
     public static boolean parser(String[] tokens){
