@@ -10,12 +10,12 @@ public class LabAct3_Tokenizer {
         String input = sc.nextLine();
 
         System.out.print("Output is: ");
-        for (String str: tokenizer(lexer(input))) {
+        for (String str: tokenize(lex(input))) {
             System.out.print(str + " ");
         }
     }
 
-    public static ArrayList < String > tokenizer(ArrayList < String > lexemes) {
+    public static ArrayList < String > tokenize(ArrayList < String > lexemes) {
         ArrayList < String > dataTypes = new ArrayList < > (
                 Arrays.asList("int", "double", "char", "String")),
                 tokens = new ArrayList < > ();
@@ -37,7 +37,7 @@ public class LabAct3_Tokenizer {
         return tokens;
     }
 
-    public static ArrayList < String > lexer(String input) {
+    public static ArrayList < String > lex(String input) {
         String[] individualChars = input.split("");
 
         ArrayList < String > lexemes = new ArrayList < > ();
