@@ -5,11 +5,17 @@ public class LabAct4_Parser {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter tokens: ");
-        printResult(parser(sc.nextLine().split(" ")));
+        if (parser(sc.nextLine().split(" "))) {
+            System.out.println("Syntax is Correct!");
+        } else {
+            System.out.println("Syntax Error!");
+        }
+
     }
 
     public static boolean parser(String[] tokens){
-        String[][] correctSyntax = {{"<data_type>","<identifier>", "<assignment_operator>","<value>","<delimiter>"},
+        String[][] correctSyntax = {{"<data_type>","<identifier>",
+                "<assignment_operator>","<value>","<delimiter>"},
                 {"<data_type>", "<identifier>", "<delimiter>"}};
 
         boolean state = false;
@@ -25,13 +31,5 @@ public class LabAct4_Parser {
             if (state) { break; }
         }
         return state;
-    }
-
-    public static void printResult(boolean state){
-        if (state) {
-            System.out.println("Syntax is Correct!");
-        } else {
-            System.out.println("Syntax Error!");
-        }
     }
 }
