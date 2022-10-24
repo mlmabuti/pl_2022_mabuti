@@ -20,15 +20,17 @@ public class LabAct4_Parser {
 
         boolean state = false;
 
-        for (int i = 0; i < correctSyntax.length; i++){
-            for (int j = 0; j < correctSyntax[i].length; j++) {
+        for (String[] syntax : correctSyntax) {
+            for (int j = 0; j < syntax.length; j++) {
                 try {
-                    state = tokens[j].equals(correctSyntax[i][j]);
-                } catch (IndexOutOfBoundsException e){
+                    state = tokens[j].equals(syntax[j]);
+                } catch (IndexOutOfBoundsException e) {
                     state = false;
                 }
             }
-            if (state) { break; }
+            if (state) {
+                break;
+            }
         }
         return state;
     }
