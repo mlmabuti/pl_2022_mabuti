@@ -5,16 +5,16 @@ public class LabAct4_Parser {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("Enter tokens: ");
-        if (parser(sc.nextLine().split(" \\s*"))) {
+        if (parse(sc.nextLine().split(" \\s*"))) {
             System.out.println("Syntax is Correct!");
         } else {
             System.out.println("Syntax Error!");
         }
     }
 
-    public static boolean parser(String[] tokens){
-        String[][] correctSyntax = {{"<data_type>","<identifier>",
-                "<assignment_operator>","<value>","<delimiter>"},
+    public static boolean parse(String[] tokens) {
+        String[][] correctSyntax = {{"<data_type>", "<identifier>",
+                "<assignment_operator>", "<value>", "<delimiter>"},
                 {"<data_type>", "<identifier>", "<delimiter>"}};
 
         boolean state = false;
