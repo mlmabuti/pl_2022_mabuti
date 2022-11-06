@@ -63,9 +63,7 @@ public class LabAct5_SemanticAnalyzer {
                     state = false;
                 }
             }
-            if (state) {
-                break;
-            }
+            if (state) { break; }
         }
         return state;
     }
