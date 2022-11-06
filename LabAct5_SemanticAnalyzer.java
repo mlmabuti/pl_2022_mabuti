@@ -14,10 +14,10 @@ public class LabAct5_SemanticAnalyzer {
         if (parse(tokens)) { // check for incorrect syntax
             if (tokens.length == 3 || analyze(lexemes)) {
                 System.out.println("Semantically Correct!");
-            } else {
-                System.out.println("Semantically Incorrect!");
+                return;
             }
-        } else System.out.println("Semantically Incorrect!");
+        }
+        System.out.println("Semantically Incorrect!");
     }
 
     public static boolean analyze(ArrayList<String> tokens) {
@@ -63,7 +63,9 @@ public class LabAct5_SemanticAnalyzer {
                     state = false;
                 }
             }
-            if (state) { break; }
+            if (state) {
+                break;
+            }
         }
         return state;
     }
