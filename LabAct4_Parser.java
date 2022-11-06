@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class LabAct4_Parser {
@@ -23,7 +24,8 @@ public class LabAct4_Parser {
             for (int j = 0; j < syntax.length; j++) {
                 try {
                     state = tokens[j].equals(syntax[j]);
-                } catch (IndexOutOfBoundsException e) {
+                    if (!state) break;
+                } catch (Exception e) {
                     state = false;
                 }
             }

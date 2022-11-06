@@ -4,16 +4,15 @@ import java.util.Scanner;
 
 public class LabAct5_SemanticAnalyzer {
     public static void main(String[] args) {
-
         System.out.print("Enter expression: ");
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
 
-        ArrayList<String> tokens = tokenize(lex(input)),
-                lexemes = lex(input);
+        ArrayList<String> lexemes = lex(input);
+        String[] tokens = tokenize(lex(input)).toArray(new String[0]);
 
         if (parse(tokens)) { // check for incorrect syntax
-            if (analyze(lexemes)) {
+            if (tokens.length == 3 || analyze(lexemes)) {
                 System.out.println("Semantically Correct!");
                 return;
             }
@@ -29,7 +28,7 @@ public class LabAct5_SemanticAnalyzer {
             if (type.equals("int") || type.equals("Integer")) {
                 Integer.parseInt(value);
                 return true;
-            } else if (type.equals("double") || type.equals("Double")) {
+            } else if ((type.equals("double") || type.equals("Double"))) {
                 Double.parseDouble(value);
                 return true;
             } else if (type.equals("String") && value.contains("\"")) {
@@ -43,7 +42,7 @@ public class LabAct5_SemanticAnalyzer {
         }
     }
 
-    public static boolean parse(ArrayList<String> tokens) {
+    public static boolean parse(String[] tokens) {
         String[][] correctSyntax = {{"<data_type>", "<identifier>",
                 "<assignment_operator>", "<value>", "<delimiter>"},
                 {"<data_type>", "<identifier>", "<delimiter>"}};
@@ -53,14 +52,13 @@ public class LabAct5_SemanticAnalyzer {
         for (String[] syntax : correctSyntax) {
             for (int j = 0; j < syntax.length; j++) {
                 try {
-                    state = tokens.get(j).equals(syntax[j]);
+                    state = tokens[j].equals(syntax[j]);
+                    if (!state) break;
                 } catch (IndexOutOfBoundsException e) {
                     state = false;
                 }
             }
-            if (state) {
-                break;
-            }
+            if (state) { break; }
         }
         return state;
     }
