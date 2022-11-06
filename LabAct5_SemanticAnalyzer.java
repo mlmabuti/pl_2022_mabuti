@@ -4,21 +4,20 @@ import java.util.Scanner;
 
 public class LabAct5_SemanticAnalyzer {
     public static void main(String[] args) {
-
         System.out.print("Enter expression: ");
         Scanner sc = new Scanner(System.in);
         String input = sc.nextLine();
 
-        ArrayList<String> tokens = tokenize(lex(input)),
-                lexemes = lex(input);
+        ArrayList<String> lexemes = lex(input);
+        String[] tokens = tokenize(lex(input)).toArray(new String[0]);
 
         if (parse(tokens)) { // check for incorrect syntax
-            if (analyze(lexemes)) {
+            if (tokens.length == 3 || analyze(lexemes)) {
                 System.out.println("Semantically Correct!");
-                return;
+            } else {
+                System.out.println("Semantically Incorrect!");
             }
-        }
-        System.out.println("Semantically Incorrect!");
+        } else System.out.println("Semantically Incorrect!");
     }
 
     public static boolean analyze(ArrayList<String> tokens) {
@@ -26,24 +25,29 @@ public class LabAct5_SemanticAnalyzer {
             String type = tokens.get(0);
             String value = tokens.get(3);
 
-            if (type.equals("int") || type.equals("Integer")) {
+            if (type.equals("int")) {
                 Integer.parseInt(value);
                 return true;
-            } else if (type.equals("double") || type.equals("Double")) {
+            } else if ((type.equals("double"))) {
                 Double.parseDouble(value);
                 return true;
             } else if (type.equals("String") && value.contains("\"")) {
                 return true;
+            } else if (type.equals("boolean") && (value.equals("true") || value.equals("false"))) {
+                return true;
+            } else if (type.equals("float")) {
+                Float.parseFloat(value);
+                return true;
             } else {
-                return (type.equals("char") || type.equals("Character")) && value.contains("'")
-                        && value.length() == 3;
+                return (type.equals("char") && value.contains("'")
+                        && value.length() == 3);
             }
         } catch (Exception e) {
             return false;
         }
     }
 
-    public static boolean parse(ArrayList<String> tokens) {
+    public static boolean parse(String[] tokens) {
         String[][] correctSyntax = {{"<data_type>", "<identifier>",
                 "<assignment_operator>", "<value>", "<delimiter>"},
                 {"<data_type>", "<identifier>", "<delimiter>"}};
@@ -53,7 +57,8 @@ public class LabAct5_SemanticAnalyzer {
         for (String[] syntax : correctSyntax) {
             for (int j = 0; j < syntax.length; j++) {
                 try {
-                    state = tokens.get(j).equals(syntax[j]);
+                    state = tokens[j].equals(syntax[j]);
+                    if (!state) break;
                 } catch (IndexOutOfBoundsException e) {
                     state = false;
                 }
@@ -67,7 +72,7 @@ public class LabAct5_SemanticAnalyzer {
 
     public static ArrayList<String> tokenize(ArrayList<String> lexemes) {
         ArrayList<String> dataTypes = new ArrayList<>(
-                Arrays.asList("int", "double", "char", "String")),
+                Arrays.asList("int", "double", "char", "String", "float", "boolean")),
                 tokens = new ArrayList<>();
 
         for (String lexeme : lexemes) {
@@ -76,7 +81,8 @@ public class LabAct5_SemanticAnalyzer {
             } else if (lexeme.contains("=")) {
                 tokens.add("<assignment_operator>");
             } else if (lexeme.contains("\"") || lexeme.contains("'") ||
-                    Character.isDigit(lexeme.charAt(0))) {
+                    Character.isDigit(lexeme.charAt(0)) ||
+                    lexeme.equals("true") || lexeme.equals("false")) {
                 tokens.add("<value>");
             } else if (lexeme.contains(";")) {
                 tokens.add("<delimiter>");
@@ -124,6 +130,7 @@ public class LabAct5_SemanticAnalyzer {
                 temp.append(c);
             }
         }
+        lexemes.add(temp.toString());
         lexemes.removeIf(n -> (n.equals("")));
         return lexemes;
     }

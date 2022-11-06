@@ -10,23 +10,24 @@ public class LabAct3_Tokenizer {
         String input = sc.nextLine();
 
         System.out.print("Output is: ");
-        for (String str: tokenize(lex(input))) {
+        for (String str : tokenize(lex(input))) {
             System.out.print(str + " ");
         }
     }
 
-    public static ArrayList < String > tokenize(ArrayList < String > lexemes) {
-        ArrayList < String > dataTypes = new ArrayList < > (
-                Arrays.asList("int", "double", "char", "String")),
-                tokens = new ArrayList < > ();
+    public static ArrayList<String> tokenize(ArrayList<String> lexemes) {
+        ArrayList<String> dataTypes = new ArrayList<>(
+                Arrays.asList("int", "double", "char", "String", "float", "boolean")),
+                tokens = new ArrayList<>();
 
-        for (String lexeme: lexemes) {
+        for (String lexeme : lexemes) {
             if (dataTypes.contains(lexeme)) {
                 tokens.add("<data_type>");
             } else if (lexeme.contains("=")) {
                 tokens.add("<assignment_operator>");
             } else if (lexeme.contains("\"") || lexeme.contains("'") ||
-                    Character.isDigit(lexeme.charAt(0))) {
+                    Character.isDigit(lexeme.charAt(0)) ||
+                    lexeme.equals("true") || lexeme.equals("false")) {
                 tokens.add("<value>");
             } else if (lexeme.contains(";")) {
                 tokens.add("<delimiter>");
@@ -37,17 +38,17 @@ public class LabAct3_Tokenizer {
         return tokens;
     }
 
-    public static ArrayList < String > lex(String input) {
+    public static ArrayList<String> lex(String input) {
         String[] individualChars = input.split("");
 
-        ArrayList < String > lexemes = new ArrayList < > ();
+        ArrayList<String> lexemes = new ArrayList<>();
 
         StringBuilder temp = new StringBuilder(),
                 quotedString = new StringBuilder();
 
         boolean isQuote = false;
 
-        for (String c: individualChars) {
+        for (String c : individualChars) {
             if (c.equals("=") && !isQuote) {
                 lexemes.add(temp.toString());
                 lexemes.add(c);
@@ -74,7 +75,10 @@ public class LabAct3_Tokenizer {
                 temp.append(c);
             }
         }
+
+        lexemes.add(temp.toString());
         lexemes.removeIf(n -> (n.equals("")));
+        System.out.println(lexemes);
         return lexemes;
     }
 }
