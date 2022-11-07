@@ -26,7 +26,7 @@ public class LabAct3_Tokenizer {
             } else if (lexeme.contains("=")) {
                 tokens.add("<assignment_operator>");
             } else if (lexeme.contains("\"") || lexeme.contains("'") ||
-                    Character.isDigit(lexeme.charAt(0)) ||
+                    Character.isDigit(lexeme.charAt(0)) || lexeme.contains(".") ||
                     lexeme.equals("true") || lexeme.equals("false")) {
                 tokens.add("<value>");
             } else if (lexeme.contains(";")) {
@@ -63,6 +63,8 @@ public class LabAct3_Tokenizer {
             } else if (c.equals("\"")) {
                 quotedString.append(c);
                 if (isQuote) {
+                    lexemes.add(temp.toString());
+                    temp = new StringBuilder();
                     lexemes.add(quotedString.toString());
                     quotedString = new StringBuilder();
                     isQuote = false;
@@ -75,10 +77,8 @@ public class LabAct3_Tokenizer {
                 temp.append(c);
             }
         }
-
         lexemes.add(temp.toString());
         lexemes.removeIf(n -> (n.equals("")));
-        System.out.println(lexemes);
         return lexemes;
     }
 }
