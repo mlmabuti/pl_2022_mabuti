@@ -126,6 +126,8 @@ public class LabAct5_SemanticAnalyzer {
 
         boolean state = false;
 
+        if (tokens.length > correctSyntax[0].length) return false;
+
         for (String[] syntax : correctSyntax) {
             for (int j = 0; j < syntax.length; j++) {
                 try {

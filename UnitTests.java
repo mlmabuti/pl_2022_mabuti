@@ -323,4 +323,10 @@ class UnitTests {
         ArrayList<String> lexemes = LabAct3_Tokenizer.lex("float x = 1.0d;");
         assertFalse(LabAct5_SemanticAnalyzer.analyzeSemantic(lexemes));
     }
+
+    @org.junit.jupiter.api.Test
+    void analyzeSemanticFalseLengthCheck(){
+        ArrayList<String> lexemes = LabAct3_Tokenizer.lex("float x = 1.0;hello12;");
+        assertFalse(LabAct5_SemanticAnalyzer.analyzeSemantic(lexemes));
+    }
 }
